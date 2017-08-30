@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ewp.moudle.sys.mapper.SysMenuMapper">
+
+    <resultMap id="SysMenuMap" type="com.ewp.entity.sys.SysMenu">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+        <result column="p_menu_code" jdbcType="VARCHAR" property="pMenuCode" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+        <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+        <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+        <result column="menu_status" jdbcType="BIT" property="menuStatus" />
+    </resultMap>
+
+    <resultMap id="SysMenuTreeMap" type="com.ewp.entity.sys.SysMenu">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+        <result column="p_menu_code" jdbcType="VARCHAR" property="pMenuCode" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+        <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+        <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+        <result column="menu_status" jdbcType="BIT" property="menuStatus" />
+
+        <collection property="children" javaType="ArrayList" ofType="com.ewp.entity.sys.SysMenu"
+                    select="findMenuTree" column="menu_code">
+        </collection>
+    </resultMap>
+
+    <select id="findMenuTree" parameterType="map" resultMap="SysMenuTreeMap">
+        SELECT *
+        FROM sys_menu
+        <where>
+            p_menu_code = #{pMenuCode}
+        </where>
+        ORDER BY order_num ASC
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    name: datasource
+  profiles:
+    active: system, dev
+  mvc:
+    throw-exception-if-no-handler-found: true #出现错误时, 直接抛出异常
+  resources:
+    add-mappings: true #不要为我们工程中的资源文件建立映射,如果设为flase,HTML页面的静态文件无法加载
+
+beetl:
+  delimiter-statement-start: \@   #开始结束标签(yaml不允许@开头)
+  delimiter-statement-end: null
+  resource-loader: templates
+  resource-auto-check: true #是否检测文件变化,开发用true合适，但线上要改为false
+
+devtools:
+  restart:
+    enabled: true #是否开启开发者工具（true/false）
+
+mybatis:
+  type-aliases-package: com.ewp.entity.*
+  mapper-locations: classpath:mapper/**/*Mapper.xml

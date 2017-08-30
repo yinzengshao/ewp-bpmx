@@ -1,0 +1,52 @@
+<div class="framework-sidebar">
+    <div class="sidebar-content">
+        <div class="sidebar-inner">
+            <div class="sidebar-fold">
+                <span class="glyphicon glyphicon-option-vertical transition"></span>
+            </div>
+            @for(pmenu in menus) {
+                @if(pmenu.children.~size > 0) {
+            <div data-menu-box="m-${pmenu.menuCode}">
+                @for(menu in pmenu.children) {
+                <div class="sidebar-nav main-nav">
+                    @if(menu.children.~size == 0) {
+                    <ul class="sidebar-trans">
+                        <li class="nav-item">
+                            <a data-menu-node='m-${pmenu.menuCode}-${menu.menuCode}' data-open="${menu.menuUrl}"
+                               class="sidebar-trans">
+                                <div class="nav-icon sidebar-trans">
+                                    <span class="fa fa-link transition"></span>
+                                </div>
+                                <span class="nav-title">${menu.menuName}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    @} else {
+                    <div class="sidebar-title">
+                        <div class="sidebar-title-inner">
+                            <span class="sidebar-title-icon fa fa-caret-right transition"></span>
+                            <span class="sidebar-title-text">${menu.menuName}</span>
+                        </div>
+                    </div>
+                    <ul class="sidebar-trans" style="display:none" data-menu-node='m-${pmenu.menuCode}-${menu.menuCode}'>
+                        @for(submenu in menu.children) {
+                        <li class="nav-item">
+                            <a data-menu-node='m-${pmenu.menuCode}-${submenu.menuCode}' data-open="${submenu.menuUrl}"
+                               class="sidebar-trans">
+                                <div class="nav-icon sidebar-trans">
+                                    <span class="${submenu.menuIcon!'fa fa-link'} transition"></span>
+                                </div>
+                                <span class="nav-title">${submenu.menuName}</span>
+                            </a>
+                        </li>
+                        @}
+                    </ul>
+                    @}
+                </div>
+                @}
+            </div>
+                @}
+            @}
+        </div>
+    </div>
+</div>

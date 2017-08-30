@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ewp.moudle.sys.mapper.SysUserMapper">
+
+  <resultMap id="SysUserMap" type="com.ewp.entity.sys.SysUser">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_emainl" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
+    <result column="user_status" jdbcType="CHAR" property="userStatus" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="modifed_at" jdbcType="TIMESTAMP" property="modifiedAt" />
+    <result column="modifed_by" jdbcType="VARCHAR" property="modifiedBy" />
+  </resultMap>
+
+  <select id="findPage" parameterType="com.ewp.entity.sys.SysUser" resultMap="SysUserMap">
+    SELECT *
+    FROM sys_user
+    <where>
+      user_name = #{userName}
+    </where>
+    ORDER BY user_name ASC
+  </select>
+</mapper>

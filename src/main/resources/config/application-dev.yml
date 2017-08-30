@@ -1,0 +1,12 @@
+######Druid数据源配置######
+# JDBC配置
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/ewp?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: root
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
