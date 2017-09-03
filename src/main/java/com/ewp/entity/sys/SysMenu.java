@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SysMenu {
 
-    private Long id;
+    private Long menuId;
     private String menuCode;
     private String pMenuCode;
     private String menuName;
@@ -14,12 +14,12 @@ public class SysMenu {
     private String menuStatus;
     private List<SysMenu> children;
 
-    public Long getId() {
-        return id;
+    public Long getMenuId() {
+        return menuId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     public String getMenuCode() {

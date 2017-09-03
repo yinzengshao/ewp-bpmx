@@ -5,7 +5,6 @@ import java.util.List;
 
 public class SysUser {
 
-    private Long id;
     private String userName;
     private String userPwd;
     private String userEmail;
@@ -18,14 +17,6 @@ public class SysUser {
     private String modifiedBy;
 
     private List roles;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;

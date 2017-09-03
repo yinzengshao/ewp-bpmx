@@ -19,13 +19,29 @@ public class UserController {
 
     @RequestMapping("/list")
     public String list(Model model, SysUser user) {
+        model.addAttribute("title", "用户管理");
         model.addAttribute("users", sysUserService.findPage(user));
         return PREFIX + "list.html";
     }
 
     @RequestMapping("/add")
     public String add(SysUser user) {
-        System.out.println("this is form.");
         return PREFIX + "form.html";
+    }
+
+    @RequestMapping("/save")
+    public void save(SysUser user) {
+        sysUserService.insert(user);
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model, SysUser user) {
+        model.addAttribute("user", user);
+        return PREFIX + "form.html";
+    }
+
+    @RequestMapping("/edit")
+    public void edit(SysUser user) {
+        sysUserService.update(user);
     }
 }

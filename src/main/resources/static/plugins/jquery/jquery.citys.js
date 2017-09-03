@@ -39,7 +39,7 @@
         }
         var dataUrl = 'http://passer-by.com/data_location/list.json';
         if (window.ROOT_URL) {
-            dataUrl = window.ROOT_URL + '/index.php/sys/plugs/region.html';
+            dataUrl = window.ROOT_URL + '/index.php/admin/plugs/region.html';
         }
         var defaults = {
             dataUrl: dataUrl,          //数据库地址

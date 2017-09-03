@@ -1,3 +1,4 @@
+
 // +----------------------------------------------------------------------
 // | Think.Admin
 // +----------------------------------------------------------------------
@@ -25,55 +26,50 @@ require.config({
         // 自定义插件（源码自创建或已修改源码）
         'admin.plugs': ['plugs'],
         'admin.listen': ['listen'],
-        'layui': ['../plugins/layui/layui'],
-        'ueditor': ['../plugins/ueditor/ueditor'],
         'template': ['../plugins/template/template'],
         'pcasunzips': ['../plugins/jquery/pcasunzips'],
-        'laydate': ['../plugins/layui/laydate/laydate'],
-        // 开源插件（未修改源码）
+        // 开源插件(未修改源码)
         'pace': ['../plugins/jquery/pace.min'],
         'json': ['../plugins/jquery/json2.min'],
-        'citys': ['../plugins/jquery/jquery.citys'],
-        'print': ['../plugins/jquery/jquery.PrintArea'],
-        'base64': ['../plugins/jquery/base64.min'],
+        'layui': ['../plugins/layui/layui'],
         'jquery': ['../plugins/jquery/jquery.min'],
+        'base64': ['../plugins/jquery/base64.min'],
+        'angular':['../plugins/angular  /angular.min'],
+        'ckeditor': ['../plugins/ckeditor/ckeditor'],
         'websocket': ['../plugins/socket/websocket'],
         'bootstrap': ['../plugins/bootstrap/js/bootstrap.min'],
-        'jquery.ztree': ['../plugins/ztree/jquery.ztree.all.min'],
         'bootstrap.typeahead': ['../plugins/bootstrap/js/bootstrap3-typeahead.min'],
-        'zeroclipboard': ['../plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.min'],
-        'jquery.cookies': ['../plugins/jquery/jquery.cookie'],
+        'jquery.ztree': ['../plugins/ztree/jquery.ztree.all.min'],
         'jquery.masonry': ['../plugins/jquery/masonry.min'],
-
+        'jquery.cookies': ['../plugins/jquery/jquery.cookie'],
     },
     shim: {
-        'citys': {deps: ['jquery']},
         'layui': {deps: ['jquery']},
-        'laydate': {deps: ['jquery']},
-        'bootstrap': {deps: ['jquery']},
+        'ckeditor': {deps: ['jquery']},
+        'websocket': {deps: [baseUrl + '../plugins/socket/swfobject.min.js']},
         'pcasunzips': {deps: ['jquery']},
+        'admin.plugs': {deps: ['jquery', 'layui']},
+        'admin.listen': {deps: ['jquery', 'jquery.cookies', 'admin.plugs']},
+        'bootstrap': {deps: ['jquery']},
+        'bootstrap.typeahead': {deps: ['bootstrap']},
+        'jquery.ztree': {deps: ['jquery', 'css!' + baseUrl + '../plugins/ztree/zTreeStyle/zTreeStyle.css']},
         'jquery.cookies': {deps: ['jquery']},
         'jquery.masonry': {deps: ['jquery']},
-        'admin.plugs': {deps: ['jquery', 'layui']},
-        'bootstrap.typeahead': {deps: ['jquery', 'bootstrap']},
-        'websocket': {deps: [baseUrl + '../plugins/socket/swfobject.min.js']},
-        'admin.listen': {deps: ['jquery', 'jquery.cookies', 'admin.plugs']},
-        'jquery.ztree': {deps: ['jquery', 'css!' + baseUrl + '../plugins/ztree/zTreeStyle/zTreeStyle.css']},
     },
     deps: ['css!' + baseUrl + '../plugins/awesome/css/font-awesome.min.css'],
     // 开启debug模式，不缓存资源
-    urlArgs: "ver=" + (new Date()).getTime()
+    // urlArgs: "ver=" + (new Date()).getTime()
 });
-
-window.WEB_SOCKET_SWF_LOCATION = baseUrl + "../plugins/socket/WebSocketMain.swf";
-window.UEDITOR_HOME_URL = (window.ROOT_URL ? window.ROOT_URL + '/static/' : baseUrl) + 'plugins/ueditor/';
 
 // UI框架初始化
-require(['pace', 'jquery', 'layui', 'bootstrap', 'jquery.cookies'], function () {
-    layui.config({dir: baseUrl + '../plugins/layui/'});
-    layui.use(['layer', 'form'], function () {
-        window.layer = layui.layer;
-        window.form = layui.form;
-        require(['admin.listen']);
+PageLayout.call(this);
+function PageLayout(callback, custom, basic) {
+    window.WEB_SOCKET_SWF_LOCATION = baseUrl + "../plugins/socket/WebSocketMain.swf";
+    require(basic || ['pace', 'jquery', 'layui', 'bootstrap'], function () {
+        layui.config({dir: baseUrl + '../plugins/layui/'});
+        layui.use(['layer', 'form'], function () {
+            window.layer = layui.layer, window.form = layui.form;
+            require(custom || ['admin.listen', 'ckeditor'], callback || false);
+        });
     });
-});
+}

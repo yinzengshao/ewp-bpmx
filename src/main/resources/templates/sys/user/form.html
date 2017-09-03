@@ -4,9 +4,9 @@
         <label class="layui-form-label">用户账号</label>
         <div class="layui-input-block">
             @if(isNotEmpty(user)) {
-            <input type="text" readonly="" disabled="" name="userName" value='{$vo.username|default=""}' required="required" title="请输入用户名称" placeholder="请输入用户名称" class="layui-input disabled">
-            @}else{
-            <input type="text" name="userName" value='{$vo.username|default=""}' required="required" title="请输入用户名称" placeholder="请输入用户名称" class="layui-input">
+            <input type="text" readonly="" disabled="" name="username" value='{$vo.username|default=""}' required="required" title="请输入用户名称" placeholder="请输入用户名称" class="layui-input disabled">
+            @} else {
+            <input type="text" name="username" value='{$vo.username|default=""}' required="required" title="请输入用户名称" placeholder="请输入用户名称" class="layui-input">
             @}
         </div>
     </div>
@@ -25,19 +25,23 @@
         </div>
     </div>
 
-    @if(isNotEmpty(ss)) {
+    {if isset($authorizes)}
     <div class="layui-form-item">
         <label class="layui-form-label">访问授权</label>
         <div class="layui-input-block">
-            @for(role in user.roles) {
-            <!--
+            {foreach $authorizes as $authorize}
+            {if in_array($authorize['id'],$vo['authorize'])}
             <input type="checkbox" checked name="authorize[]" value="{$authorize.id}" title="{$authorize.title}">
-            {-->
+            {else}
             <input type="checkbox" name="authorize[]" value="{$authorize.id}" title="{$authorize.title}">
-            @}
+            {/if}
+            {/foreach}
+            {if empty($authorizes)}
+            <span style="color:#999;line-height:36px">尚未配置权限</span>
+            {/if}
         </div>
     </div>
-    @}
+    {/if}
 
     <div class="layui-form-item">
         <label class="layui-form-label">用户描述</label>
@@ -50,10 +54,13 @@
     <div class="hr-line-dashed"></div>
 
     <div class="layui-form-item text-center">
-        {if isset($vo['id'])}<input type='hidden' value='{$vo.id}' name='id'/>{/if}
+        @if(user!isNotEmpty(user.user_name)) {
+        <input type='hidden' value='{$vo.id}' name='id'/>
+        @}
         <button class="layui-btn" type='submit'>保存数据</button>
         <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
     </div>
 
     <script>window.form.render();</script>
 </form>
+

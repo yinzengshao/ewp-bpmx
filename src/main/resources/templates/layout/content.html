@@ -1,22 +1,22 @@
 <div class="ibox">
     ${style}
-    <div class="ibox-title">
-        @if(isNotEmpty(title)) {
+    @if(isNotEmpty(title)) {
+    <div class="ibox-title notselect">
         <h5>${title}</h5>
-        @}
         ${button}
     </div>
-    <div class="ibox-content fadeInUp animated">
+    @}
+    <div class="ibox-content">
         @if(isNotEmpty(alert)) {
         <div class="alert alert-{$alert.type} alert-dismissible" role="alert" style="border-radius:0">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             @if(isNotEmpty(alert.title)) {
-            <p style="font-size:18px;padding-bottom:10px">${alert.title}
+            <p style="font-size:18px;padding-bottom:10px">${alert.title}</p>
             @}
             @if(isNotEmpty(alert.content)) {
-            <p style="font-size:18px;padding-bottom:10px">${alert.content}</p>
+            <p style="font-size:14px">${alert.content}</p>
             @}
         </div>
         @}
